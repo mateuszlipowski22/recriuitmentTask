@@ -1,8 +1,8 @@
 package ultimate.systems.recruitmenttask.services.implementations;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
+import ultimate.systems.recruitmenttask.dto.TeacherDTO;
 import ultimate.systems.recruitmenttask.models.Teacher;
 import ultimate.systems.recruitmenttask.repositories.TeacherRepository;
 import ultimate.systems.recruitmenttask.services.interfaces.TeacherService;
@@ -18,5 +18,30 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<Teacher> findAllTeachers() {
         return teacherRepository.findAll();
+    }
+
+    @Override
+    public TeacherDTO convertTeacherToTeacherDTO(Teacher teacher) {
+
+
+        return TeacherDTO.builder()
+                .id(teacher.getId())
+                .age(teacher.getAge())
+                .email(teacher.getEmail())
+                .name(teacher.getName())
+                .surname(teacher.getSurname())
+                .students(teacher
+                        .getStudents())
+                .subject(teacher.getSubject())
+                .build();
+    }
+
+    @Override
+    public List<TeacherDTO> findAllTeachersDTO() {
+        return teacherRepository
+                .findAll()
+                .stream()
+                .map(this::convertTeacherToTeacherDTO)
+                .toList();
     }
 }

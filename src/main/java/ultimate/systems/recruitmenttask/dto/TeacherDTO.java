@@ -1,9 +1,6 @@
 package ultimate.systems.recruitmenttask.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ultimate.systems.recruitmenttask.models.Student;
 
 import javax.validation.constraints.Email;
@@ -16,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class TeacherDTO {
 
     private Long id;
