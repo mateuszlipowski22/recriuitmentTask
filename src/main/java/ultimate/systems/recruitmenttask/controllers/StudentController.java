@@ -1,6 +1,11 @@
 package ultimate.systems.recruitmenttask.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -12,10 +17,12 @@ import ultimate.systems.recruitmenttask.services.interfaces.StudentService;
 import ultimate.systems.recruitmenttask.services.interfaces.TeacherService;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Controller
 @AllArgsConstructor
 @RequestMapping("students/")
+@Slf4j
 public class StudentController {
 
     private final StudentService studentService;
@@ -27,9 +34,17 @@ public class StudentController {
         model.addAttribute("teachers", teacherService.findAllTeachers());
     }
 
-    @GetMapping("all")
-    public String showAllStudents(Model model){
-        model.addAttribute("studentsDTO", studentService.findAllStudentsDTO());
+    @GetMapping("all/{page}/{direction}/{field}")
+    public String showAllStudentsSortedPage(Model model, @PathVariable String direction, @PathVariable String field, @PathVariable int page){
+        Page<Student> pages = studentService.findAllStudentsSortedReturnPages(page, direction, field);
+        model.addAttribute("number", pages.getNumber());
+        model.addAttribute("totalPages", pages.getTotalPages());
+        model.addAttribute("studentsDTO",pages.getContent()
+                .stream()
+                .map(studentService::convertStudentToStudentDTO)
+                .toList());
+        model.addAttribute("direction", direction);
+        model.addAttribute("field", field);
         return "students/all";
     }
 
@@ -87,8 +102,14 @@ public class StudentController {
 
     @Transactional
     @PostMapping("/delete")
-    public String processDeleteUser(@RequestParam("id") Long id) {
+    public String processDeleteStudent(@RequestParam("id") Long id) {
         studentService.deleteStudentById(id);
         return "redirect:/students/all";
+    }
+
+    @PostMapping("/search")
+    public String processSearchStudent(Model model, String name, String surname) {
+        model.addAttribute("studentsDTO", studentService.findAllStudentsDTOByNameAndOrSurname(name, surname));
+        return "students/results";
     }
 }

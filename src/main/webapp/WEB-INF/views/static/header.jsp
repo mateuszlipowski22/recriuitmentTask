@@ -41,9 +41,10 @@
                         <div class="tabs is-right">
                             <ul>
                                 <li><a href="/">Home</a></li>
-                                <li><a href="/students/all">All students</a></li>
+                                <li><a href="/students/all/1/ASC/surname">All students</a></li>
                                 <li><a href="/students/add">Add students</a></li>
                                 <li><a href="/teachers/all">All teachers</a></li>
+                                <li><a href="/teachers/add">Add teachers</a></li>
                             </ul>
                         </div>
                     </div>

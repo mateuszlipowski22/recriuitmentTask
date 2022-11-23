@@ -10,7 +10,7 @@
             <div class="tile is-4 is-vertical is-parent">
                 <div class="tile is-child box">
                     <p class="title">
-                        Student: <br>${studentDTO.name} ${studentDTO.surname}<br>
+                        Teacher: <br>${teacherDTO.name} ${teacherDTO.surname}<br>
                     </p>
                 </div>
             </div>
@@ -19,60 +19,61 @@
                     <div class="field">
                         <label class="label">Age:</label>
                         <div>
-                            ${studentDTO.age}
+                            ${teacherDTO.age}
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Email:</label>
                         <div>
-                            ${studentDTO.email}
+                            ${teacherDTO.email}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-            <c:if test="${empty studentDTO.teachers}">
+            <c:if test="${empty teacherDTO.students}">
                 <div class="container has-text-centered">
                     <p class="title">
-                        Lack of student's teachers<br>
+                        Lack of teacher's students<br>
                         <br>
                     </p>
                 </div>
             </c:if>
 
-            <c:if test="${not empty studentDTO.teachers}">
+            <c:if test="${not empty teacherDTO.students}">
                 <div class="container has-text-centered">
                     <p class="title">
-                        Teachers list<br>
+                        Students list<br>
                         <br>
                     </p>
                 </div>
                 <table class="table is-fullwidth is-bordered" style="width:100%">
                     <thead>
-                        <tr>
-                            <th style="width:10%">Num</th>
-                            <th style="width:15%">Name</th>
-                            <th style="width:20%">Surname</th>
-                            <th>Email</th>
-                            <th style="width:10%">Subject</th>
-                        </tr>
+                    <tr>
+                        <th style="width:10%">Num</th>
+                        <th style="width:15%">Name</th>
+                        <th style="width:20%">Surname</th>
+                        <th>Email</th>
+                        <th style="width:10%">Specialization</th>
+                    </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="teacher" items="${studentDTO.teachers}" varStatus="loop">
+                    <c:forEach var="student" items="${teacherDTO.students}" varStatus="loop">
                         <tr>
                             <td>${loop.count}</td>
-                            <th>${teacher.name}</th>
-                            <th>${teacher.surname}</th>
-                            <th>${teacher.email}</th>
-                            <th>${teacher.subject}</th>
+                            <td>${student.name}</td>
+                            <td>${student.surname}</td>
+                            <td>${student.email}</td>
+                            <td>${student.specialization}</td>
                         </tr>
                     </c:forEach>
+                    </tbody>
                 </table>
             </c:if>
             <div class="container has-text-centered">
                 <div>
-                    <a href="/students/all/1/ASC/surname">
-                        <button type="submit" class="button button is-primary"><br>Show students list<br></button>
+                    <a href="/teachers/all">
+                        <button type="submit" class="button button is-primary"><br>Show teachers list<br></button>
                     </a>
                 </div>
             </div>
