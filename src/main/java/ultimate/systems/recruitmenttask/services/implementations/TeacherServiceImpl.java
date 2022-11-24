@@ -1,9 +1,11 @@
 package ultimate.systems.recruitmenttask.services.implementations;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ultimate.systems.recruitmenttask.dto.TeacherDTO;
-import ultimate.systems.recruitmenttask.models.Student;
 import ultimate.systems.recruitmenttask.models.Teacher;
 import ultimate.systems.recruitmenttask.repositories.TeacherRepository;
 import ultimate.systems.recruitmenttask.services.interfaces.TeacherService;
@@ -75,4 +77,64 @@ public class TeacherServiceImpl implements TeacherService {
         teacherRepository.deleteTeacherFromStudentTeacherByID(id);
         teacherRepository.deleteById(id);
     }
+
+    @Override
+    public List<Teacher> findAllTeachersSorted(String direction, String field) {
+        return teacherRepository.findAll(Sort.by(Sort.Direction.valueOf(direction), field));
+
+    }
+
+    @Override
+    public List<TeacherDTO> findAllTeachersDTOSorted(String direction, String field) {
+        return findAllTeachersSorted(direction,field)
+                .stream()
+                .map(this::convertTeacherToTeacherDTO)
+                .toList();
+    }
+
+    @Override
+    public Page<Teacher> findAllTeachersSortedReturnPages(int page, String direction, String field) {
+        return teacherRepository.findAll(PageRequest.of(page-1, 4, Sort.by(Sort.Direction.valueOf(direction), field)));
+    }
+
+    @Override
+    public List<TeacherDTO> findAllTeachersDTOByNameAndSurname(String name, String surname){
+        return teacherRepository.findAllByNameAndSurname(name, surname)
+                .stream()
+                .map(this::convertTeacherToTeacherDTO)
+                .toList();
+    }
+
+    @Override
+    public List<TeacherDTO> findAllTeachersDTOByName(String name) {
+        return teacherRepository.findAllByName(name)
+                .stream()
+                .map(this::convertTeacherToTeacherDTO)
+                .toList();
+    }
+
+    @Override
+    public List<TeacherDTO> findAllTeachersDTOBySurname(String surname) {
+        return teacherRepository.findAllBySurname(surname)
+                .stream()
+                .map(this::convertTeacherToTeacherDTO)
+                .toList();
+    }
+
+    @Override
+    public List<TeacherDTO> findAllTeachersDTOByNameAndOrSurname(String name, String surname) {
+        if(name!=null && !name.isEmpty()){
+            if (surname!=null && !surname.isEmpty()){
+                return findAllTeachersDTOByNameAndSurname(name, surname);
+            }else {
+                return findAllTeachersDTOByName(name);
+            }
+        }else {
+            if (surname!=null && !surname.isEmpty()){
+                return findAllTeachersDTOBySurname(surname);
+            }
+        }
+        return null;
+    }
+
 }

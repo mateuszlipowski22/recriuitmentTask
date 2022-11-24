@@ -1,6 +1,7 @@
 package ultimate.systems.recruitmenttask.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -30,8 +31,21 @@ public class TeacherController {
     }
 
     @GetMapping("all")
-    public String showAllTeachers(Model model){
-        model.addAttribute("teachersDTO", teacherService.findAllTeachersDTO());
+    public String addParameters(){
+        return "redirect:/teachers/all/1/ASC/surname";
+    }
+
+    @GetMapping("all/{page}/{direction}/{field}")
+    public String showAllTeachersSortedPage(Model model, @PathVariable String direction, @PathVariable String field, @PathVariable int page){
+        Page<Teacher> pages = teacherService.findAllTeachersSortedReturnPages(page, direction, field);
+        model.addAttribute("number", pages.getNumber());
+        model.addAttribute("totalPages", pages.getTotalPages());
+        model.addAttribute("teachersDTO",pages.getContent()
+                .stream()
+                .map(teacherService::convertTeacherToTeacherDTO)
+                .toList());
+        model.addAttribute("direction", direction);
+        model.addAttribute("field", field);
         return "teachers/all";
     }
 
@@ -92,5 +106,11 @@ public class TeacherController {
     public String processDeleteTeacher(@RequestParam("id") Long id) {
         teacherService.deleteTeacherById(id);
         return "redirect:/teachers/all";
+    }
+
+    @PostMapping("/search")
+    public String processSearchTeacher(Model model, String name, String surname) {
+        model.addAttribute("teachersDTO", teacherService.findAllTeachersDTOByNameAndOrSurname(name, surname));
+        return "teachers/results";
     }
 }

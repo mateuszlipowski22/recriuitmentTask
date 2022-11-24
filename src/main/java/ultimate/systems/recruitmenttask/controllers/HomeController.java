@@ -9,7 +9,7 @@ public class HomeController {
 
     @GetMapping({"","/"})
     public String showAllTeachers(){
-        return "redirect:/teachers/all";
+        return "redirect:/teachers/all/1/ASC/surname";
     }
 
 }

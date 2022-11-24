@@ -10,8 +10,6 @@ public interface StudentService {
 
     List<Student> findAllStudents();
 
-    List<Student> findAllStudentsSorted(String direction, String field);
-
     StudentDTO convertStudentToStudentDTO(Student student);
 
     List<StudentDTO> findAllStudentsDTO();
@@ -35,4 +33,7 @@ public interface StudentService {
     List<StudentDTO> findAllStudentsDTOBySurname(String surname);
 
     List<StudentDTO> findAllStudentsDTOByNameAndOrSurname(String name, String surname);
+
+    List<Student> findAllStudentsSorted(String direction, String field);
+
 }

@@ -8,14 +8,14 @@
     <div class="container has-text-centered">
         <div class="container has-text-centered">
             <p class="title">
-                All teachers<br>
+                Search result<br>
                 <br>
             </p>
         </div>
         <c:if test="${empty teachersDTO}">
             <div class="container has-text-centered">
                 <p class="title">
-                    Lack of any teachers in database<br>
+                    Lack of search results<br>
                     <br>
                 </p>
             </div>
@@ -26,10 +26,10 @@
                 <thead>
                 <tr>
                     <th style="width:10%">Num</th>
-                    <th style="width:15%">Name <a href="/teachers/all/${page}/ASC/name">▲</a> | <a href="/teachers/all/${page}/DESC/name">▼</a></th>
-                    <th style="width:20%">Surname <a href="/teachers/all/${page}/ASC/surname">▲</a> | <a href="/teachers/all/${page}/DESC/surname">▼</a></th>
+                    <th style="width:15%">Name</th>
+                    <th style="width:20%">Surname</th>
                     <th>Email</th>
-                    <th style="width:10%">Specialization</th>
+                    <th style="width:10%">Subject</th>
                     <th style="width:20%">Actions</th>
                 </tr>
                 </thead>
@@ -65,37 +65,12 @@
                     </tr>
                 </c:forEach>
                 </tbody>
-                <tfoot>
-                <form method="post" action="/teachers/search">
-                    <tr>
-                        <th colspan="2">Name:  <input type="text" name="name"></th>
-                        <th colspan="2">Surname:  <input type="text" name="surname"></th>
-                        <th colspan="2"><button type="submit" class="button button is-primary">Search</button></th>
-                    </tr>
-                </form>
-                </tfoot>
             </table>
-
-            <c:if test="${teachersDTO.size() > 0 }">
-                <div class="container">
-                    <div class="tabs is-centered">
-                        Current page: ${page} out of ${totalPages}
-                        <ul>
-                            <c:forEach begin="0" end="${totalPages-1}" var="page">
-                                <li class="is-centered">
-                                    <a href="/teachers/all/${page+1}/${direction}/${field}" class="page-link">${page+1}</a>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </div>
-            </c:if>
-
         </c:if>
         <div class="container has-text-centered">
             <div>
-                <a href="/teachers/add">
-                    <button type="submit" class="button button is-primary"><br>Add new teacher<br></button>
+                <a href="/teachers/all">
+                    <button type="submit" class="button button is-primary"><br>Show all teachers<br></button>
                 </a>
             </div>
         </div>

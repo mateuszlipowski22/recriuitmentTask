@@ -34,6 +34,11 @@ public class StudentController {
         model.addAttribute("teachers", teacherService.findAllTeachers());
     }
 
+    @GetMapping("all")
+    public String addParameters(){
+        return "redirect:/students/all/1/ASC/surname";
+    }
+
     @GetMapping("all/{page}/{direction}/{field}")
     public String showAllStudentsSortedPage(Model model, @PathVariable String direction, @PathVariable String field, @PathVariable int page){
         Page<Student> pages = studentService.findAllStudentsSortedReturnPages(page, direction, field);

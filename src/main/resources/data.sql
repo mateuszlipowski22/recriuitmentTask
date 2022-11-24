@@ -1,0 +1,62 @@
+INSERT INTO `ultimate-solutions`.student (name, surname, specialization, email, age) VALUES
+                                                      ('Alisa', 'Ketola', 'Modern History', 'alisa.ketola@example.com', 21),
+                                                      ('Constance', 'Fournier', 'Ancient History', 'constance.fournier@example.com', 22),
+                                                      ('Naomi', 'Lee', 'Mechanical Engineering', 'naomi.lee@example.com', 21),
+                                                      ('Philip', 'Ouellet', 'IT', 'philip.ouellet@example.com', 24),
+                                                      ('Mathew', 'Coleman', 'Material Engineering', 'mathew.coleman@example.com', 25),
+                                                      ('Océane', 'Muller', 'Mechatronics', 'oceane.muller@example.com', 22),
+                                                      ('Lorena', 'Alves', 'Physics', 'lorena.alves@example.com', 21),
+                                                      ('Jeet', 'Das', 'Civil Engineering', 'jeet.das@example.com', 20),
+                                                      ('Herédio', 'Moraes', 'Mathematics', 'heredio.moraes@example.com', 21),
+                                                      ('Nenad', 'Katanić', 'Mechatronics', 'nenad.katanic@example.com', 19);
+
+INSERT INTO `ultimate-solutions`.teacher (name, surname, subject, email, age) VALUES
+                                                                                  ('Anna', 'Price', 'Art', 'anna.price@example.com', 35),
+                                                                                  ('Jerome', 'Snyder', 'Computer Science', 'jerome.snyder@example.com', 44),
+                                                                                  ('Viivi', 'Kauppila', 'Modern Materials', 'viivi.kauppila@example.com', 43),
+                                                                                  ('Reinald', 'Leibold', 'Algebra', 'reinald.leibold@example.com', 32),
+                                                                                  ('Donita', 'Chiplunkar', 'Geology', 'donita.chiplunkar@example.com', 27),
+                                                                                  ('Nilda', 'Almeida', 'Engineering Drawing', 'nilda.almeida@example.com', 55),
+                                                                                  ('Erin', 'Watts', 'Sociology', 'erin.watts@example.com', 59),
+                                                                                  ('Rosie', 'Burns', 'Literature', 'rosie.burns@example.com', 32);
+
+INSERT INTO `ultimate-solutions`.student_teachers (student_id, teachers_id) VALUES
+                                                                                   (1,1),
+                                                                                   (1,2),
+                                                                                   (1,3),
+                                                                                   (2,2),
+                                                                                   (2,5),
+                                                                                   (2,1),
+                                                                                   (3,7),
+                                                                                   (3,8),
+                                                                                   (4,6),
+                                                                                   (5,7),
+                                                                                   (5,8),
+                                                                                   (6,6),
+                                                                                   (6,1),
+                                                                                   (7,8),
+                                                                                   (7,6),
+                                                                                   (8,8),
+                                                                                   (8,6),
+                                                                                   (9,1),
+                                                                                   (9,2),
+                                                                                   (9,3),
+                                                                                   (9,4),
+                                                                                   (10,2);
+
+INSERT INTO `ultimate-solutions`.teacher_students (teacher_id, students_id) VALUES
+                                                                                (1,1),
+                                                                                (1,2),
+                                                                                (1,3),
+                                                                                (2,2),
+                                                                                (2,5),
+                                                                                (2,1),
+                                                                                (3,7),
+                                                                                (3,8),
+                                                                                (4,6),
+                                                                                (5,7),
+                                                                                (5,8),
+                                                                                (6,6),
+                                                                                (6,1),
+                                                                                (7,8),
+                                                                                (7,6);

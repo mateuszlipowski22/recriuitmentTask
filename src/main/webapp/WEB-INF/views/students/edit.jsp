@@ -62,10 +62,15 @@
         <div class="field">
             <label class="label">Teachers:</label>
             <div>
-                <form:select itemValue="id" itemLabel="surname" path="teachers" items="${teachers}"/>
-                <div>
-                    <form:errors path="teachers"></form:errors>
-                </div>
+                <c:forEach var="teacher" items="${teachers}" varStatus="loop">
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="teachers" value="${teacher.id}"
+                                   <c:if test="${studentDTO.teachers.contains(teacher)}">checked</c:if>>
+                            <span>${teacher.name} ${teacher.surname}</span>
+                        </label>
+                    </div>
+                </c:forEach>
             </div>
             <br>
             <div>
